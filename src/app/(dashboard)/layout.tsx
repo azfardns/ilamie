@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { createServerClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
+import LogoutButton from "@/components/LogoutButton";
 
 export default async function DashboardLayout({
   children,
@@ -28,7 +29,7 @@ export default async function DashboardLayout({
       : []),
     ...(profile?.role === "admin"
       ? [
-          { label: "Organizer Requests", href: "/admin/requests" },
+          { label: "Organizer Requests", href: "/admin/applications" },
           { label: "Approved Organizers", href: "/admin/organizers" },
         ]
       : []),
@@ -37,8 +38,15 @@ export default async function DashboardLayout({
 
   return (
     <div className="flex h-screen">
-      <aside className="w-64 bg-white border-r p-6 space-y-4">
-        <h2 className="text-xl font-bold text-emerald-700">Dashboard</h2>
+      <aside className="w-64 bg-white p-6 space-y-4">
+        <div className="flex items-center justify-between mb-4">
+          <Link href="/" className="text-xl font-bold text-emerald-700">
+                    IslamicEvents
+          </Link>
+        </div>
+        {/* <br className="border-gray-200 mb-4" /> */}
+        <hr className="border-gray-200 mb-10" />
+        {/* <h2 className="text-xl font-bold text-emerald-700">Dashboard</h2> */}
         {nav.map((item) => (
           <Link
             key={item.href}
@@ -48,6 +56,7 @@ export default async function DashboardLayout({
             {item.label}
           </Link>
         ))}
+        <LogoutButton />
       </aside>
       <main className="flex-1 p-8 overflow-y-auto">{children}</main>
     </div>

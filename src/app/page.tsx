@@ -1,6 +1,7 @@
 import { createServerClient } from "@/lib/supabase/server";
 import EventCard from "@/components/EventCard";
 import FilterBar from "@/components/FilterBar";
+import Header from "@/components/Header";
 
 interface Props {
   searchParams?: {
@@ -38,8 +39,10 @@ export default async function Home({ searchParams = {} }: Props) {
     .order("name");
 
   return (
-    <section>
-      <h1 className="text-3xl font-bold mb-6">Upcoming Lectures</h1>
+    <>
+    <Header/>
+    <section className="max-w-7xl mx-auto px-4 py-8">
+      <h1 className="text-3xl font-bold mb-8">Upcoming Lectures</h1>
 
       <FilterBar venues={venues || []} />
 
@@ -51,5 +54,6 @@ export default async function Home({ searchParams = {} }: Props) {
         ))}
       </div>
     </section>
+    </>
   );
 }

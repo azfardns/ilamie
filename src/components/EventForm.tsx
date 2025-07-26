@@ -53,70 +53,108 @@ export default function EventForm({ initial }: { initial?: Event }) {
   });
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 max-w-lg">
-      <input
-        name="title"
-        defaultValue={initial?.title}
-        placeholder="Title"
-        required
-        className="w-full border p-2 rounded"
-      />
-      <textarea
-        name="description"
-        defaultValue={initial?.description}
-        placeholder="Description"
-        rows={4}
-        required
-        className="w-full border p-2 rounded"
-      />
-      <input
-        name="speaker"
-        defaultValue={initial?.speaker}
-        placeholder="Speaker"
-        required
-        className="w-full border p-2 rounded"
-      />
-      <input
-        name="starts_at"
-        type="datetime-local"
-        defaultValue={initial?.starts_at?.slice(0, 16)}
-        required
-        className="w-full border p-2 rounded"
-      />
-      <select
-        name="venue_id"
-        defaultValue={initial?.venue_id}
-        required
-        className="w-full border p-2 rounded"
-      >
-        <option value="">Select Venue</option>
-        {venues.map((v) => (
-          <option key={v.id} value={v.id}>
-            {v.name}
-          </option>
-        ))}
-      </select>
+    <div className="w-full max-w-2xl mx-auto">
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div className="grid gap-4 md:grid-cols-2">
+          <div className="md:col-span-2">
+            <input
+              name="title"
+              defaultValue={initial?.title}
+              placeholder="Event title"
+              required
+              className="w-full bg-white border border-gray-200 px-4 py-3 rounded-lg 
+                       text-gray-900 placeholder-gray-500 text-sm
+                       focus:outline-none focus:ring-2 focus:ring-[#25c226] focus:border-transparent
+                       transition-all duration-200 hover:border-gray-300"
+            />
+          </div>
+          
+          <input
+            name="speaker"
+            defaultValue={initial?.speaker}
+            placeholder="Speaker name"
+            required
+            className="w-full bg-white border border-gray-200 px-4 py-3 rounded-lg 
+                     text-gray-900 placeholder-gray-500 text-sm
+                     focus:outline-none focus:ring-2 focus:ring-[#25c226] focus:border-transparent
+                     transition-all duration-200 hover:border-gray-300"
+          />
+          
+          <input
+            name="starts_at"
+            type="datetime-local"
+            defaultValue={initial?.starts_at?.slice(0, 16)}
+            required
+            className="w-full bg-white border border-gray-200 px-4 py-3 rounded-lg 
+                     text-gray-900 text-sm
+                     focus:outline-none focus:ring-2 focus:ring-[#25c226] focus:border-transparent
+                     transition-all duration-200 hover:border-gray-300"
+          />
+          
+          <div className="md:col-span-2">
+            <select
+              name="venue_id"
+              defaultValue={initial?.venue_id}
+              required
+              className="w-full bg-white border border-gray-200 px-4 py-3 rounded-lg 
+                       text-gray-900 text-sm
+                       focus:outline-none focus:ring-2 focus:ring-[#25c226] focus:border-transparent
+                       transition-all duration-200 hover:border-gray-300"
+            >
+              <option value="" className="text-gray-500">Select venue</option>
+              {venues.map((v) => (
+                <option key={v.id} value={v.id} className="text-gray-900">
+                  {v.name}
+                </option>
+              ))}
+            </select>
+          </div>
+          
+          <div className="md:col-span-2">
+            <textarea
+              name="description"
+              defaultValue={initial?.description}
+              placeholder="Event description"
+              rows={4}
+              required
+              className="w-full bg-white border border-gray-200 px-4 py-3 rounded-lg 
+                       text-gray-900 placeholder-gray-500 text-sm resize-none
+                       focus:outline-none focus:ring-2 focus:ring-[#25c226] focus:border-transparent
+                       transition-all duration-200 hover:border-gray-300"
+            />
+          </div>
+        </div>
 
-      <button
-        disabled={loading}
-        className="bg-emerald-600 text-white px-4 py-2 rounded hover:bg-emerald-700 disabled:opacity-50"
-      >
-        {loading ? "Saving…" : isEdit ? "Save Changes" : "Publish Event"}
-      </button>
+        <div className="flex gap-3 pt-2">
+          <button
+            disabled={loading}
+            className="bg-[#25c226] text-white px-6 py-3 rounded-lg text-sm font-medium
+                     hover:bg-[#19a01a] active:bg-[#177e19] disabled:bg-gray-300
+                     transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98]
+                     focus:outline-none focus:ring-2 focus:ring-[#25c226] focus:ring-offset-2
+                     shadow-sm hover:shadow-md disabled:hover:scale-100 disabled:cursor-not-allowed"
+          >
+            {loading ? "Saving..." : isEdit ? "Save Changes" : "Publish Event"}
+          </button>
 
-      {isEdit && (
-        <button
-          type="button"
-          onClick={async () => {
-            if (!confirm("Delete this event?")) return;
-            await supabase.from("events").delete().eq("id", initial!.id);
-            router.push("/organizer/my-events");
-          }}
-          className="ml-2 border border-red-500 text-red-500 px-4 py-2 rounded hover:bg-red-50"
-        >
-          Delete
-        </button>
-      )}
-    </form>
+          {isEdit && (
+            <button
+              type="button"
+              onClick={async () => {
+                if (!confirm("Delete this event?")) return;
+                await supabase.from("events").delete().eq("id", initial!.id);
+                router.push("/organizer/my-events");
+              }}
+              className="border border-red-300 text-red-600 px-6 py-3 rounded-lg text-sm font-medium
+                       hover:bg-red-50 hover:border-red-400 active:bg-red-100
+                       transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98]
+                       focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+            >
+              Delete
+            </button>
+          )}
+        </div>
+      </form>
+    </div>
   );
 }

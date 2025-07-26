@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { createServerClient } from "@/lib/supabase/server";
-import LogoutButton from "./LogoutButton";
 
 export default async function Header() {
   const supabase = createServerClient();
@@ -9,38 +8,35 @@ export default async function Header() {
   } = await supabase.auth.getUser();
 
   return (
-    <header className="bg-white shadow">
-      <nav className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-        <Link href="/" className="text-xl font-bold text-emerald-700">
+    <header className="bg-white/90 backdrop-blur-md border-b border-[#defbdd] shadow-sm sticky top-0 z-50">
+      <nav className="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+        <Link href="/" className="text-xl font-bold text-[#25c226] hover:text-[#19a01a] transition-colors">
           IslamicEvents
         </Link>
 
-        <div className="space-x-4">
+        <div className="flex items-center gap-3">
           {!user ? (
             <>
               <Link
                 href="/login"
-                className="text-emerald-700 hover:underline"
+                className="text-[#177e19] hover:text-[#25c226] font-medium transition-colors px-3 py-1.5 rounded-lg hover:bg-[#defbdd]/50"
               >
                 Login
               </Link>
               <Link
                 href="/register"
-                className="bg-emerald-600 text-white px-3 py-1 rounded hover:bg-emerald-700"
+                className="bg-[#25c226] text-white px-4 py-1.5 rounded-lg hover:bg-[#19a01a] transition-colors font-medium shadow-sm"
               >
                 Register
               </Link>
             </>
           ) : (
-            <>
-              <Link
-                href="/organizer/my-events"
-                className="text-emerald-700 hover:underline"
-              >
-                Dashboard
-              </Link>
-              <LogoutButton />
-            </>
+            <Link
+              href="/organizer/my-events"
+              className="text-[#177e19] hover:text-[#25c226] font-medium transition-colors px-3 py-1.5 rounded-lg hover:bg-[#defbdd]/50"
+            >
+              Dashboard
+            </Link>
           )}
         </div>
       </nav>

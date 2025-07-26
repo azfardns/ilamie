@@ -22,30 +22,50 @@ export default function AuthForm({ mode }: { mode: "login" | "register" }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      {error && <p className="text-red-600">{error}</p>}
-      <input
-        type="email"
-        placeholder="Email"
-        required
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        className="w-full border px-3 py-2 rounded"
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        required
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        className="w-full border px-3 py-2 rounded"
-      />
-      <button
-        type="submit"
-        className="w-full bg-emerald-600 text-white py-2 rounded hover:bg-emerald-700"
-      >
-        {mode === "login" ? "Login" : "Register"}
-      </button>
-    </form>
+    <div className="w-full max-w-sm mx-auto">
+      <form onSubmit={handleSubmit} className="space-y-3">
+        {error && (
+          <div className="bg-red-50 border border-red-200 text-red-700 px-3 py-2 rounded-lg text-sm">
+            {error}
+          </div>
+        )}
+        
+        <div className="space-y-2">
+          <input
+            type="email"
+            placeholder="Email address"
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-full bg-white border border-gray-200 px-4 py-3 rounded-lg 
+                     text-gray-900 placeholder-gray-500 text-sm
+                     focus:outline-none focus:ring-2 focus:ring-[#25c226] focus:border-transparent
+                     transition-all duration-200 hover:border-gray-300"
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            required
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="w-full bg-white border border-gray-200 px-4 py-3 rounded-lg 
+                     text-gray-900 placeholder-gray-500 text-sm
+                     focus:outline-none focus:ring-2 focus:ring-[#25c226] focus:border-transparent
+                     transition-all duration-200 hover:border-gray-300"
+          />
+        </div>
+
+        <button
+          type="submit"
+          className="w-full bg-[#25c226] text-white py-3 px-4 rounded-lg text-sm font-medium
+                   hover:bg-[#19a01a] active:bg-[#177e19] 
+                   transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98]
+                   focus:outline-none focus:ring-2 focus:ring-[#25c226] focus:ring-offset-2
+                   shadow-sm hover:shadow-md"
+        >
+          {mode === "login" ? "Sign In" : "Create Account"}
+        </button>
+      </form>
+    </div>
   );
 }

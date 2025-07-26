@@ -22,28 +22,60 @@ export default function FilterBar({ venues }: { venues: { id: string; name: stri
   };
 
   return (
-    <div className="flex flex-wrap gap-4 items-end bg-white p-4 rounded shadow">
-      <select value={venue} onChange={(e) => setVenue(e.target.value)} className="border px-3 py-1 rounded">
-        <option value="">All Venues</option>
-        {venues.map((v) => (
-          <option key={v.id} value={v.id}>{v.name}</option>
-        ))}
-      </select>
+    <div className="bg-white/80 backdrop-blur-sm p-4 rounded-xl border border-[#defbdd] shadow-sm">
+      <div className="flex flex-wrap gap-3 items-end">
+        <div className="flex flex-col">
+          <label className="text-sm font-medium text-[#186319] mb-1">Venue</label>
+          <select 
+            value={venue} 
+            onChange={(e) => setVenue(e.target.value)} 
+            className="border border-[#bdf6bc] px-3 py-2 rounded-lg focus:ring-2 focus:ring-[#25c226] focus:border-transparent outline-none bg-white text-sm min-w-[120px]"
+          >
+            <option value="">All Venues</option>
+            {venues.map((v) => (
+              <option key={v.id} value={v.id}>{v.name}</option>
+            ))}
+          </select>
+        </div>
 
-      <input
-        type="text"
-        placeholder="Speaker"
-        value={speaker}
-        onChange={(e) => setSpeaker(e.target.value)}
-        className="border px-3 py-1 rounded"
-      />
+        <div className="flex flex-col">
+          <label className="text-sm font-medium text-[#186319] mb-1">Speaker</label>
+          <input
+            type="text"
+            placeholder="Search speaker..."
+            value={speaker}
+            onChange={(e) => setSpeaker(e.target.value)}
+            className="border border-[#bdf6bc] px-3 py-2 rounded-lg focus:ring-2 focus:ring-[#25c226] focus:border-transparent outline-none text-sm min-w-[140px]"
+          />
+        </div>
 
-      <input type="date" value={from} onChange={(e) => setFrom(e.target.value)} className="border px-3 py-1 rounded" />
-      <input type="date" value={to} onChange={(e) => setTo(e.target.value)} className="border px-3 py-1 rounded" />
+        <div className="flex flex-col">
+          <label className="text-sm font-medium text-[#186319] mb-1">From</label>
+          <input 
+            type="date" 
+            value={from} 
+            onChange={(e) => setFrom(e.target.value)} 
+            className="border border-[#bdf6bc] px-3 py-2 rounded-lg focus:ring-2 focus:ring-[#25c226] focus:border-transparent outline-none text-sm"
+          />
+        </div>
 
-      <button onClick={applyFilters} className="bg-emerald-600 text-white px-4 py-1 rounded hover:bg-emerald-700">
-        Filter
-      </button>
+        <div className="flex flex-col">
+          <label className="text-sm font-medium text-[#186319] mb-1">To</label>
+          <input 
+            type="date" 
+            value={to} 
+            onChange={(e) => setTo(e.target.value)} 
+            className="border border-[#bdf6bc] px-3 py-2 rounded-lg focus:ring-2 focus:ring-[#25c226] focus:border-transparent outline-none text-sm"
+          />
+        </div>
+
+        <button 
+          onClick={applyFilters} 
+          className="bg-[#25c226] text-white px-5 py-2 rounded-lg hover:bg-[#19a01a] transition-colors font-medium shadow-sm h-fit"
+        >
+          Apply Filters
+        </button>
+      </div>
     </div>
   );
 }
