@@ -8,7 +8,7 @@ export default function CreateEventPage() {
         <p className="text-[#177e19]">Share knowledge with your community</p>
       </div>
       
-      <div className="bg-white/90 backdrop-blur-sm rounded-xl border border-[#defbdd] shadow-sm p-6">
+      <div>
         <EventForm />
       </div>
     </section>

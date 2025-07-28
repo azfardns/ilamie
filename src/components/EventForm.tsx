@@ -28,7 +28,11 @@ export default function EventForm({ initial }: { initial?: Event }) {
       description: fd.get("description") as string,
       speaker: fd.get("speaker") as string,
       starts_at: fd.get("starts_at") as string,
-      venue_id: fd.get("venue_id") as string,
+      venue_name: fd.get("venue_name"),
+      address_line1: fd.get("address_line1"),
+      address_line2: fd.get("address_line2"),
+      city: fd.get("city"),
+      state: fd.get("state"),
     };
 
     if (isEdit) {
@@ -90,25 +94,12 @@ export default function EventForm({ initial }: { initial?: Event }) {
                      focus:outline-none focus:ring-2 focus:ring-[#25c226] focus:border-transparent
                      transition-all duration-200 hover:border-gray-300"
           />
-          
-          <div className="md:col-span-2">
-            <select
-              name="venue_id"
-              defaultValue={initial?.venue_id}
-              required
-              className="w-full bg-white border border-gray-200 px-4 py-3 rounded-lg 
-                       text-gray-900 text-sm
-                       focus:outline-none focus:ring-2 focus:ring-[#25c226] focus:border-transparent
-                       transition-all duration-200 hover:border-gray-300"
-            >
-              <option value="" className="text-gray-500">Select venue</option>
-              {venues.map((v) => (
-                <option key={v.id} value={v.id} className="text-gray-900">
-                  {v.name}
-                </option>
-              ))}
-            </select>
-          </div>
+
+          <input name="venue_name"    placeholder="Venue Name"        required className="w-full border p-2 rounded" />
+          <input name="address_line1" placeholder="Address Line 1"    required className="w-full border p-2 rounded" />
+          <input name="address_line2" placeholder="Address Line 2"    className="w-full border p-2 rounded" />
+          <input name="city"          placeholder="City"              required className="w-full border p-2 rounded" />
+          <input name="state"         placeholder="State"             required className="w-full border p-2 rounded" />
           
           <div className="md:col-span-2">
             <textarea

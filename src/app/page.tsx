@@ -1,6 +1,6 @@
 import { createServerClient } from "@/lib/supabase/server";
 import EventCard from "@/components/EventCard";
-import FilterBar from "@/components/FilterBar";
+// import FilterBar from "@/components/FilterBar";
 import Header from "@/components/Header";
 
 interface Props {
@@ -18,11 +18,11 @@ export default async function Home({ searchParams = {} }: Props) {
   // Build query
   let query = supabase
     .from("events")
-    .select("*, venue:venues(name, city, state)")
+    .select("*")
     .order("starts_at", { ascending: true });
 
-  if (searchParams.venue)
-    query = query.eq("venue_id", searchParams.venue);
+  // if (searchParams.venue)
+  //   query = query.eq("venue_id", searchParams.venue);
   if (searchParams.speaker)
     query = query.ilike("speaker", `%${searchParams.speaker}%`);
   if (searchParams.from)
@@ -33,10 +33,10 @@ export default async function Home({ searchParams = {} }: Props) {
   const { data: events, error } = await query;
 
   // Venue dropdown list
-  const { data: venues } = await supabase
-    .from("venues")
-    .select("id, name")
-    .order("name");
+  // const { data: venues } = await supabase
+  //   .from("venues")
+  //   .select("id, name")
+  //   .order("name");
 
   return (
     <>
@@ -44,7 +44,7 @@ export default async function Home({ searchParams = {} }: Props) {
     <section className="max-w-7xl mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-8">Upcoming Lectures</h1>
 
-      <FilterBar venues={venues || []} />
+      {/* <FilterBar venues={venues || []} /> */}
 
       {error && <p className="text-red-600">{error.message}</p>}
 

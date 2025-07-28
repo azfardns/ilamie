@@ -10,7 +10,7 @@ export default async function MyEventsPage() {
 
   const { data: events } = await supabase
     .from("events")
-    .select("*, venue:venues(name)")
+    .select("*")
     .eq("organizer_id", user?.id)
     .order("starts_at", { ascending: true });
 
@@ -37,27 +37,21 @@ export default async function MyEventsPage() {
           </div>
           <h3 className="text-lg font-medium text-[#155217] mb-2">No events yet</h3>
           <p className="text-[#177e19] mb-4">Create your first event to get started</p>
-          <Link
-            href="/organizer/create"
-            className="bg-[#25c226] text-white px-4 py-2 rounded-lg hover:bg-[#19a01a] transition-colors font-medium"
-          >
-            Create Event
-          </Link>
         </div>
       ) : (
         <div className="space-y-4">
           {events?.map((ev) => (
-            <div key={ev.id} className="bg-white/90 backdrop-blur-sm rounded-xl border border-[#defbdd] p-5 shadow-sm">
+            <div key={ev.id} className="bg-white backdrop-blur-sm rounded-xl border border-gray-200 p-5">
               <div className="flex items-start justify-between">
                 <div className="flex-1">
                   <h3 className="font-semibold text-[#155217] mb-2">{ev.title}</h3>
                   <div className="flex items-center gap-4 text-sm text-[#177e19]">
                     <span className="flex items-center gap-1">
-                      🗓️ {new Date(ev.starts_at).toLocaleString("en-MY")}
+                      {new Date(ev.starts_at).toLocaleString("en-MY")}
                     </span>
-                    <span className="flex items-center gap-1">
-                      📍 {ev.venue.name}
-                    </span>
+                    <p className="text-sm text-gray-600">
+                      {ev.venue_name}, {ev.address_line1}, {ev.address_line2}, {ev.city}, {ev.state}
+                    </p>
                   </div>
                 </div>
                 <div className="flex items-center gap-2 ml-4">

@@ -24,7 +24,6 @@ export default async function DashboardLayout({
     ...(profile?.role === "organizer"
       ? [
           { label: "My Events", href: "/organizer/my-events" },
-          { label: "Create Event", href: "/organizer/create" },
         ]
       : []),
     ...(profile?.role === "admin"
